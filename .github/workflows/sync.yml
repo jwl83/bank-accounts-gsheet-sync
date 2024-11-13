@@ -22,3 +22,10 @@ jobs:
 
     - name: Execute accounts-sync script
       run: npm run accounts-sync
+      env:
+        BANK_ACCOUNT_DATA_SECRET_ID: ${{ secrets.BANK_ACCOUNT_DATA_SECRET_ID }}
+        BANK_ACCOUNT_DATA_SECRET_KEY: ${{ secrets.BANK_ACCOUNT_DATA_SECRET_KEY }}
+        BANK_ACCOUNT_DATA_COUNTRY: ${{ secrets.BANK_ACCOUNT_DATA_COUNTRY }}
+        GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+        GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+        GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
