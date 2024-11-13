@@ -88,10 +88,21 @@ const isApiRateLimitError = (err: ApiError): boolean =>
 export const GOCARDLESS_BASE_URL = 'https://gocardless.com/';
 
 export const initBankAccountData = async () => {
+  // Retrieve env vars
+  const { BANK_ACCOUNT_DATA_SECRET_ID, BANK_ACCOUNT_DATA_SECRET_KEY } =
+    process.env;
+
+  // Ensure env vars are set before proceeding
+  if (!BANK_ACCOUNT_DATA_SECRET_ID || !BANK_ACCOUNT_DATA_SECRET_KEY) {
+    throw new Error(
+      'BANK_ACCOUNT_DATA_SECRET_ID & BANK_ACCOUNT_DATA_SECRET_KEY must be set!',
+    );
+  }
+
   // Initiate bank-account-data client with secretId/secretKey from bankaccountdata.gocardless.com
   const client = new NordigenClient({
-    secretId: process.env.BANK_ACCOUNT_DATA_SECRET_ID,
-    secretKey: process.env.BANK_ACCOUNT_DATA_SECRET_KEY,
+    secretId: BANK_ACCOUNT_DATA_SECRET_ID,
+    secretKey: BANK_ACCOUNT_DATA_SECRET_KEY,
     baseUrl: 'https://bankaccountdata.gocardless.com/api/v2',
   });
 
@@ -103,7 +114,7 @@ export const initBankAccountData = async () => {
 
 export const getInstitutions = async (client: NordigenClient) =>
   (await client.institution.getInstitutions({
-    country: process.env.BANK_ACCOUNT_DATA_COUNTRY,
+    country: process.env.BANK_ACCOUNT_DATA_COUNTRY ?? 'GB',
   })) as InstitutionsList;
 
 export const getRequisitions = async (client: NordigenClient) =>

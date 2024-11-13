@@ -15,15 +15,30 @@ const SCOPES = [
 ];
 
 export const initGoogleSheet = async () => {
-  // Init JWT authentication using email & key from env vars
-  const jwt = new JWT({
-    email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-    key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  // Retrieve env vars
+  const { GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEET_ID } =
+    process.env;
+
+  // Ensure env vars are set before proceeding
+  if (
+    !GOOGLE_SERVICE_ACCOUNT_EMAIL ||
+    !GOOGLE_PRIVATE_KEY ||
+    !GOOGLE_SHEET_ID
+  ) {
+    throw new Error(
+      'GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY & GOOGLE_SHEET_ID must be set!',
+    );
+  }
+
+  // Init JWT authentication using gCloud email & key
+  const auth = new JWT({
+    email: GOOGLE_SERVICE_ACCOUNT_EMAIL,
+    key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     scopes: SCOPES,
   });
 
   // Init gSheet
-  const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID, jwt);
+  const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID, auth);
   await doc.loadInfo();
 
   return doc;
