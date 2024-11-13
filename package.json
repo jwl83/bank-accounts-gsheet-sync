@@ -1,0 +1,41 @@
+{
+  "name": "bank-accounts-gsheet-sync",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint",
+    "build": "tsc",
+    "banks-list": "tsx src/commands/banks-list.ts",
+    "link-create": "tsx src/commands/link-create.ts",
+    "link-delete": "tsx src/commands/link-delete.ts",
+    "links-list": "tsx src/commands/links-list.ts",
+    "account-view": "tsx src/commands/account-view.ts",
+    "accounts-sync": "tsx src/commands/accounts-sync.ts",
+    "sheet-balances-example": "tsx src/commands/sheet-balances-example.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "google-auth-library": "^9.14.2",
+    "google-spreadsheet": "^4.1.4",
+    "nordigen-node": "^1.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/eslint__js": "^8.42.3",
+    "@types/node": "^22.9.0",
+    "eslint": "^9.14.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.13.0"
+  }
+}
