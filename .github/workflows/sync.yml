@@ -3,7 +3,7 @@ name: sync
 on:
   push:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 7,15,23 * * *"
 
 jobs:
 
